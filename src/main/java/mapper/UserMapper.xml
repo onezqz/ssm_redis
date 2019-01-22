@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.UserMapper">
+    <resultMap id="baseResultMap" type="user">
+        <id column="uid" property="uid"/>
+        <result column="username" property="username"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+    </resultMap>
+    <sql id="baseSql">
+        uid,username,sex,age
+    </sql>
+    <!--查询所有用户-->
+    <select id="getAllUser" resultMap="baseResultMap">
+        SELECT
+        <include refid="baseSql"/>
+        FROM user
+    </select>
+    <!--根据关键信息查用户 id username,age...-->
+    <select id="findUserByKeyword" resultMap="baseResultMap">
+        SELECT
+            <include refid="baseSql"/>
+        from user
+        where uid like #{keyword}
+        or username like #{keyword}
+        or sex like #{keyword}
+        or age like #{keyword}
+    </select>
+    <!--根据uid获得用户-->
+    <select id="findUserByUid" parameterType="java.lang.String" resultType="user">
+        SELECT
+            <include refid="baseSql"/>
+        from user
+        where uid=#{uid}
+    </select>
+
+    <!--根据uid删除用户-->
+    <delete id="delUserById" parameterType="java.lang.String">
+        DELETE FROM user where uid=#{uid}
+    </delete>
+
+    <!--插入新用户-->
+    <insert id="insertUser" parameterType="user">
+        INSERT into user(uid,username,sex,age)
+        VALUES (null,#{username},#{sex},#{age})
+    </insert>
+
+    <!--根据id更新用户-->
+    <update id="updateUser" parameterType="user">
+        UPDATE user SET username=#{username},sex=#{sex},age=#{age}
+        where uid=#{uid}
+    </update>
+ </mapper>
