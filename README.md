@@ -1,7 +1,7 @@
 ## SSM+Redis Dome
 
 ### 使用框架：
-    **Spring+SpringMvc+Mybatis+Redis**
+    Spring+SpringMvc+Mybatis+Redis
 ### 使用工具：
     Navicat+RedisDesktopManager
 ### 介绍：
